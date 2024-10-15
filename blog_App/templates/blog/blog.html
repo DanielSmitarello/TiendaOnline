@@ -1,0 +1,53 @@
+{% extends 'gestion_Pedidos_App_Templates/base.html' %}
+
+{% load static %}
+
+{% block content %}
+<title>Blog</title>
+<h2 class="subtitulo">Categorías</h2>
+<div class="categoria-titulos">
+   
+    <ul class="categoria">
+        {% for categoria in categorias %}
+            <li class="categoria-puntual"><a href="{% url 'posts_por_categoria' categoria.id %}" style="color: aliceblue;">{{ categoria.nombre }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+
+
+
+<h1 class="subtitulo">
+    {% if categoria %}
+        Publicaciones en la categoría: {{ categoria.nombre }}
+    {% else %}
+        Todas las publicaciones
+    {% endif %}
+</h1>
+
+
+<div class="row">
+    {% for post in post %}
+    <div class="col-md-4 mb-4 d-flex align-items-stretch"> <!-- Asegura que las columnas tengan el mismo alto -->
+        <div class="card h-100 d-flex flex-column centrado-card"> <!-- Tarjetas con altura 100% y layout en columna -->
+            {% if post.imagen %}
+                <img src="{{post.imagen.url}}" class="card-img-top img-fluid imagen-ajustada" alt="...">
+            {% else %}
+                <p class="parrafo-foto">No hay imagen disponible</p>
+            {% endif %}
+            <div class="card-body d-flex flex-column centrado-card">
+                <h5 class="card-title mb-5">{{post.titulo }}</h5>
+                <p class="card-text flex-grow-1">{{post.contenido}}</p>
+                <div class="parrafo-autor">
+                    <p class="card-text flex-grow-1">Autor: <strong>{{post.autor}}</strong></p> <!-- Crece para igualar el espacio -->
+                </div>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+        <h2 class="subtitulo">No hay publicaciones disponibles.</h2>
+    {% endfor %}
+</div>
+
+
+
+{% endblock %}

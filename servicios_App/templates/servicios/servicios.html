@@ -1,0 +1,21 @@
+{% extends 'gestion_Pedidos_App_Templates/base.html' %}
+
+{% load static %}
+
+{% block content %}
+    <div class="row">
+        {% for servicio in servicios %}
+        <div class="col-md-4 mb-4 d-flex align-items-stretch"> <!-- Asegura que las columnas tengan el mismo alto -->
+            <div class="card h-100 d-flex flex-column"> <!-- Tarjetas con altura 100% y layout en columna -->
+                <img src="{{servicio.imagen.url}}" class="card-img-top img-fluid imagen-ajustada" alt="...">
+                <div class="card-body d-flex flex-column centrado-card">
+                    <h5 class="card-title">{{servicio.titulo}}</h5>
+                    <p class="card-text flex-grow-1">{{servicio.contenido}}</p> <!-- Crece para igualar el espacio -->
+                    <a href="#" class="btn btn-primary mt-auto">Contratar</a> <!-- Se empuja al fondo -->
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
