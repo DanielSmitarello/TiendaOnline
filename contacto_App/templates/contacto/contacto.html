@@ -6,4 +6,23 @@
 <title>Contacto</title>
 <br>
 <h1 style="color: aliceblue;">Contacto</h1>
+
+<div class="caja-formulario">
+    <div class="formulario">
+        {% if 'valido' in request.GET %}
+
+        <p>Gracias {{nombre}}, hemos recibido su mensaje</p>
+
+        {% endif %}
+        <form method="post" class="campos">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="submit-contacto">Enviar</button>
+          
+        </form>
+    </div>
+</div>
+
+
+
 {% endblock %}
