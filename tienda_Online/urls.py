@@ -28,6 +28,7 @@ urlpatterns = [
     path('servicios/',include('servicios_App.urls')),
     path('blog/',include('blog_App.urls')),
     path('contacto/',include('contacto_App.urls')),
+    path('tienda/',include('tienda_App.urls')),
 ]
 
 # if settings.DEBUG:
