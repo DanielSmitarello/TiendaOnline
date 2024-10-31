@@ -5,15 +5,26 @@
 {% block content %}
 
 <title>Tienda</title>
-<h2 class="subtitulo">Categorías</h2>
-<div class="categoria-titulos">
+<!-- <h2 class="subtitulo">Categorías</h2> -->
+<!-- <div class="categoria-titulos">
    
     <ul class="categoria">
         {% for categoria in categorias %}
             <li class="categoria-puntual"><a href="{% url 'productos_por_categoria' categoria.id %}" style="color: aliceblue;">{{ categoria.nombre }}</a></li>
         {% endfor %}
     </ul>
+</div> -->
+
+<div class="categoria-titulos">
+    <label for="categoria-select" style="color: aliceblue;">Selecciona una categoría:</label>
+    <select id="categoria-select" class="categoria" onchange="location = this.value;">
+        <option class="desplegable" value="" disabled selected>Elige una categoría</option>
+        {% for categoria in categorias %}
+            <option value="{% url 'productos_por_categoria' categoria.id %}">{{ categoria.nombre }}</option>
+        {% endfor %}
+    </select>
 </div>
+
 
 <h1 class="subtitulo">
     {% if categorias %}
@@ -23,26 +34,35 @@
     {% endif %}
 </h1>
 
-<div class="row">
-    {% for producto in productos %}
-    <div class="col-md-4 mb-4 d-flex align-items-stretch"> <!-- Asegura que las columnas tengan el mismo alto -->
-        <div class="card h-100 d-flex flex-column centrado-card"> <!-- Tarjetas con altura 100% y layout en columna -->
-            {% if producto.imagen %}
-                <img src="{{producto.imagen.url}}" class="card-img-top img-fluid imagen-ajustada" alt="...">
-            {% else %}
-                <p class="parrafo-foto">No hay imagen disponible</p>
-            {% endif %}
-            <div class="card-body d-flex flex-column centrado-card">
-                <h5 class="card-title mb-5">{{producto.titulo}}</h5>
-                <p class="card-text flex-grow-1">$ {{producto.precio}}</p>
-                <div class="parrafo-autor">
-                    <p class="card-text flex-grow-1">Disponible: <strong>{{producto.disponibilidad}}</strong></p> <!-- Crece para igualar el espacio -->
+<div class="cards" style="display: flex; flex-direction: row-reverse;">
+    <div class="carro-tienda" style="width: 25%;">
+        <p style="color: aliceblue;">Carro de la tienda</p>
+    </div>
+    <div class="row">
+        {% for producto in productos %}
+        <div class="col-md-4 mb-4 d-flex align-items-stretch"> <!-- Asegura que las columnas tengan el mismo alto -->
+            <div class="card h-100 d-flex flex-column centrado-card"> <!-- Tarjetas con altura 100% y layout en columna -->
+                {% if producto.imagen %}
+                    <img src="{{producto.imagen.url}}" class="card-img-top img-fluid imagen-ajustada" alt="...">
+                {% else %}
+                    <p class="parrafo-foto">No hay imagen disponible</p>
+                {% endif %}
+                <div class="card-body d-flex flex-column centrado-card">
+                    <h5 class="card-title mb-5">{{producto.titulo}}</h5>
+                    <p class="card-text flex-grow-1">$ {{producto.precio}}</p>
+                    <div class="parrafo-autor">
+                        <p class="card-text flex-grow-1">Disponible: <strong>{{producto.disponibilidad}}</strong></p> <!-- Crece para igualar el espacio -->
+                    </div>
+                </div>
+                <div class="card-footer text-center">
+                    <a href="#" class="btn btn-success">Agregar</a>
                 </div>
             </div>
         </div>
+        {% empty %}
+            <h2 class="subtitulo">No hay productos disponibles.</h2>
+        {% endfor %}
     </div>
-    {% empty %}
-        <h2 class="subtitulo">No hay productos disponibles.</h2>
-    {% endfor %}
 </div>
+
 {% endblock %}
